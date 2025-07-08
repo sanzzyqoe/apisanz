@@ -8,21 +8,48 @@ import secrets
 # DON'T CHANGE THIS !!!
 sys.path.insert(0, os.path.dirname(os.path.dirname(__file__)))
 
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, send_from_directory
 from flask_restx import Api, Resource, fields, Namespace
 from flask_cors import CORS
-from src.models.user import db
 
-app = Flask(__name__, static_folder=os.path.join(os.path.dirname(__file__), 'static'))
+app = Flask(__name__, static_folder='static', static_url_path='/static')
 app.config['SECRET_KEY'] = 'asdf#FGSgvasgf$5$WGT'
 
 # Enable CORS
 CORS(app)
 
-# Database configuration
-app.config['SQLALCHEMY_DATABASE_URI'] = f"sqlite:///{os.path.join(os.path.dirname(__file__), 'database', 'app.db')}"
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-db.init_app(app)
+# Add home route before API initialization
+@app.route('/')
+def home():
+    try:
+        # Read the HTML file directly
+        html_path = os.path.join(app.static_folder, 'index.html')
+        with open(html_path, 'r', encoding='utf-8') as f:
+            return f.read()
+    except Exception as e:
+        return {
+            'message': 'Welcome to Comprehensive API with 50 Features',
+            'documentation': '/swagger/',
+            'version': '1.0.0',
+            'features': 50,
+            'authentication': 'API Key required (X-API-Key header)',
+            'sample_keys': {
+                'demo-key-123': 'Full access (read, write, admin)',
+                'test-key-456': 'Read and write access',
+                'readonly-789': 'Read only access'
+            },
+            'endpoints': {
+                'auth': '/api/auth',
+                'users': '/api/users',
+                'products': '/api/products',
+                'orders': '/api/orders',
+                'analytics': '/api/analytics',
+                'files': '/api/files',
+                'notifications': '/api/notifications',
+                'system': '/api/system'
+            },
+            'error': str(e)
+        }
 
 # Initialize Flask-RESTX
 api = Api(
@@ -40,6 +67,47 @@ api = Api(
     },
     security='apikey'
 )
+
+# Custom Swagger UI configuration
+@api.documentation
+def custom_ui():
+    return '''
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <title>Comprehensive API with 50 Features</title>
+        <link rel="stylesheet" type="text/css" href="/swaggerui/swagger-ui.css" />
+        <link rel="stylesheet" type="text/css" href="/static/swagger-custom.css" />
+        <style>
+            html { box-sizing: border-box; overflow: -moz-scrollbars-vertical; overflow-y: scroll; }
+            *, *:before, *:after { box-sizing: inherit; }
+            body { margin:0; background: #fafafa; }
+        </style>
+    </head>
+    <body>
+        <div id="swagger-ui"></div>
+        <script src="/swaggerui/swagger-ui-bundle.js"></script>
+        <script src="/swaggerui/swagger-ui-standalone-preset.js"></script>
+        <script>
+            window.onload = function() {
+                const ui = SwaggerUIBundle({
+                    url: '/swagger.json',
+                    dom_id: '#swagger-ui',
+                    deepLinking: true,
+                    presets: [
+                        SwaggerUIBundle.presets.apis,
+                        SwaggerUIStandalonePreset
+                    ],
+                    plugins: [
+                        SwaggerUIBundle.plugins.DownloadUrl
+                    ],
+                    layout: "StandaloneLayout"
+                });
+            };
+        </script>
+    </body>
+    </html>
+    '''
 
 # Sample API keys for demonstration
 VALID_API_KEYS = {
@@ -82,6 +150,7 @@ analytics_ns = Namespace('analytics', description='Analytics and reporting opera
 files_ns = Namespace('files', description='File management operations')
 notifications_ns = Namespace('notifications', description='Notification operations')
 system_ns = Namespace('system', description='System operations')
+misc_ns = Namespace('misc', description='Miscellaneous operations')
 
 api.add_namespace(auth_ns, path='/api/auth')
 api.add_namespace(users_ns, path='/api/users')
@@ -91,6 +160,7 @@ api.add_namespace(analytics_ns, path='/api/analytics')
 api.add_namespace(files_ns, path='/api/files')
 api.add_namespace(notifications_ns, path='/api/notifications')
 api.add_namespace(system_ns, path='/api/system')
+api.add_namespace(misc_ns, path='/api/misc')
 
 # Models for Swagger documentation
 user_model = api.model('User', {
@@ -129,7 +199,7 @@ order_model = api.model('Order', {
     'updated_at': fields.DateTime(description='Last update timestamp')
 })
 
-# Authentication endpoints
+# Authentication endpoints (Features 1-2)
 @auth_ns.route('/validate')
 class ValidateAPIKey(Resource):
     @auth_ns.doc('validate_api_key')
@@ -151,7 +221,7 @@ class GenerateAPIKey(Resource):
         new_key = f"key-{secrets.token_urlsafe(16)}"
         return {'api_key': new_key, 'message': 'New API key generated'}
 
-# User Management endpoints (Features 1-10)
+# User Management endpoints (Features 3-12)
 @users_ns.route('/')
 class UserList(Resource):
     @users_ns.doc('list_users')
@@ -238,7 +308,23 @@ class UserSearch(Resource):
         query = request.args.get('q', '')
         return {'query': query, 'results': [{'id': 1, 'username': 'john_doe'}]}
 
-# Product Management endpoints (Features 11-20)
+@users_ns.route('/roles')
+class UserRoles(Resource):
+    @users_ns.doc('get_user_roles')
+    @require_api_key(['read'])
+    def get(self):
+        """Get user roles"""
+        return {'roles': ['admin', 'user', 'moderator', 'guest']}
+
+@users_ns.route('/<int:user_id>/permissions')
+class UserPermissions(Resource):
+    @users_ns.doc('get_user_permissions')
+    @require_api_key(['read'])
+    def get(self, user_id):
+        """Get user permissions"""
+        return {'user_id': user_id, 'permissions': ['read', 'write']}
+
+# Product Management endpoints (Features 13-22)
 @products_ns.route('/')
 class ProductList(Resource):
     @products_ns.doc('list_products')
@@ -331,7 +417,7 @@ class ProductSearch(Resource):
         query = request.args.get('q', '')
         return {'query': query, 'results': [{'id': 1, 'name': 'Laptop'}]}
 
-# Order Management endpoints (Features 21-30)
+# Order Management endpoints (Features 23-32)
 @orders_ns.route('/')
 class OrderList(Resource):
     @orders_ns.doc('list_orders')
@@ -417,16 +503,7 @@ class OrderStatistics(Resource):
         """Get order statistics"""
         return {'total_orders': 1000, 'pending_orders': 50, 'completed_orders': 950}
 
-# Continue with more endpoints...
-
-if __name__ == '__main__':
-    with app.app_context():
-        db.create_all()
-    app.run(host='0.0.0.0', port=5000, debug=True)
-
-
-
-# Analytics endpoints (Features 31-40)
+# Analytics endpoints (Features 33-42)
 @analytics_ns.route('/dashboard')
 class AnalyticsDashboard(Resource):
     @analytics_ns.doc('get_analytics_dashboard')
@@ -551,7 +628,7 @@ class AnalyticsAlerts(Resource):
             ]
         }
 
-# File Management endpoints (Features 41-45)
+# File Management endpoints (Features 43-47)
 @files_ns.route('/upload')
 class FileUpload(Resource):
     @files_ns.doc('upload_file')
@@ -621,7 +698,7 @@ class FileShare(Resource):
             'expires_at': data.get('expires_at', '2025-01-14T10:00:00Z')
         }
 
-# Notification endpoints (Features 46-48)
+# Notification endpoints (Features 48-50)
 @notifications_ns.route('/')
 class NotificationList(Resource):
     @notifications_ns.doc('list_notifications')
@@ -668,7 +745,7 @@ class NotificationSend(Resource):
             'type': data.get('type', 'email')
         }
 
-# System endpoints (Features 49-50)
+# System endpoints (No auth required for health check)
 @system_ns.route('/health')
 class SystemHealth(Resource):
     @system_ns.doc('system_health_check')
@@ -696,9 +773,8 @@ class SystemInfo(Resource):
             'cpu_usage': '23%'
         }
 
-# Add a simple home route
-@app.route('/')
-def home():
+@app.route('/api-info')
+def api_info():
     return {
         'message': 'Welcome to Comprehensive API with 50 Features',
         'documentation': '/swagger/',
@@ -709,6 +785,19 @@ def home():
             'demo-key-123': 'Full access (read, write, admin)',
             'test-key-456': 'Read and write access',
             'readonly-789': 'Read only access'
+        },
+        'endpoints': {
+            'auth': '/api/auth',
+            'users': '/api/users',
+            'products': '/api/products',
+            'orders': '/api/orders',
+            'analytics': '/api/analytics',
+            'files': '/api/files',
+            'notifications': '/api/notifications',
+            'system': '/api/system'
         }
     }
+
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=5000, debug=True)
 
