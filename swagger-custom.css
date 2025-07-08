@@ -1,0 +1,434 @@
+/* Custom Swagger UI Styling - Elegant Theme */
+.swagger-ui {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif !important;
+}
+
+:root {
+    --primary-color: #1e293b;
+    --secondary-color: #334155;
+    --accent-color: #10b981;
+    --accent-light: #34d399;
+    --text-primary: #0f172a;
+    --text-secondary: #64748b;
+    --text-light: #94a3b8;
+    --background: #ffffff;
+    --surface: #f8fafc;
+    --surface-elevated: #ffffff;
+    --border: #e2e8f0;
+    --border-light: #f1f5f9;
+    --shadow: rgba(15, 23, 42, 0.08);
+    --shadow-lg: rgba(15, 23, 42, 0.15);
+}
+
+/* Header styling */
+.swagger-ui .topbar {
+    background: var(--primary-color) !important;
+    border-bottom: none !important;
+    box-shadow: 0 2px 8px var(--shadow-lg) !important;
+}
+
+.swagger-ui .topbar .download-url-wrapper {
+    display: none !important;
+}
+
+/* Info section styling */
+.swagger-ui .info {
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%) !important;
+    color: white !important;
+    padding: 3rem 2rem !important;
+    border-radius: 16px !important;
+    margin-bottom: 2rem !important;
+    box-shadow: 0 8px 32px var(--shadow-lg) !important;
+    border: 1px solid var(--border) !important;
+}
+
+.swagger-ui .info .title {
+    color: white !important;
+    font-size: 2.25rem !important;
+    font-weight: 700 !important;
+    margin-bottom: 1rem !important;
+    text-shadow: none !important;
+}
+
+.swagger-ui .info .description {
+    color: rgba(255, 255, 255, 0.9) !important;
+    font-size: 1.1rem !important;
+    line-height: 1.6 !important;
+}
+
+.swagger-ui .info .base-url {
+    color: var(--accent-light) !important;
+    font-weight: 600 !important;
+    background: rgba(255, 255, 255, 0.1) !important;
+    padding: 0.5rem 1rem !important;
+    border-radius: 8px !important;
+    display: inline-block !important;
+    margin-top: 1rem !important;
+}
+
+/* Authorize button styling */
+.swagger-ui .auth-wrapper .authorize {
+    background: var(--accent-color) !important;
+    border: none !important;
+    border-radius: 12px !important;
+    padding: 12px 24px !important;
+    font-weight: 600 !important;
+    color: white !important;
+    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3) !important;
+    transition: all 0.2s ease !important;
+    font-size: 0.95rem !important;
+}
+
+.swagger-ui .auth-wrapper .authorize:hover {
+    background: var(--accent-light) !important;
+    transform: translateY(-2px) !important;
+    box-shadow: 0 6px 20px rgba(16, 185, 129, 0.4) !important;
+}
+
+/* Operation blocks styling */
+.swagger-ui .opblock {
+    border-radius: 12px !important;
+    margin-bottom: 1rem !important;
+    box-shadow: 0 2px 8px var(--shadow) !important;
+    border: 1px solid var(--border) !important;
+    overflow: hidden !important;
+    background: var(--surface-elevated) !important;
+}
+
+.swagger-ui .opblock.opblock-get {
+    border-left: 4px solid #3b82f6 !important;
+}
+
+.swagger-ui .opblock.opblock-post {
+    border-left: 4px solid var(--accent-color) !important;
+}
+
+.swagger-ui .opblock.opblock-put {
+    border-left: 4px solid #f59e0b !important;
+}
+
+.swagger-ui .opblock.opblock-delete {
+    border-left: 4px solid #ef4444 !important;
+}
+
+.swagger-ui .opblock.opblock-patch {
+    border-left: 4px solid #8b5cf6 !important;
+}
+
+/* Operation summary styling */
+.swagger-ui .opblock .opblock-summary {
+    padding: 1.25rem 1.5rem !important;
+    border-bottom: 1px solid var(--border-light) !important;
+    background: var(--surface-elevated) !important;
+}
+
+.swagger-ui .opblock .opblock-summary-method {
+    border-radius: 8px !important;
+    font-weight: 700 !important;
+    padding: 6px 12px !important;
+    min-width: 70px !important;
+    text-align: center !important;
+    font-size: 0.875rem !important;
+}
+
+.swagger-ui .opblock .opblock-summary-path {
+    font-family: 'SF Mono', 'Monaco', 'Inconsolata', 'Roboto Mono', monospace !important;
+    font-weight: 600 !important;
+    color: var(--text-primary) !important;
+    font-size: 0.95rem !important;
+}
+
+.swagger-ui .opblock .opblock-summary-description {
+    color: var(--text-secondary) !important;
+    font-style: normal !important;
+    font-size: 0.9rem !important;
+}
+
+/* Method colors */
+.swagger-ui .opblock.opblock-get .opblock-summary-method {
+    background: #3b82f6 !important;
+    color: white !important;
+}
+
+.swagger-ui .opblock.opblock-post .opblock-summary-method {
+    background: var(--accent-color) !important;
+    color: white !important;
+}
+
+.swagger-ui .opblock.opblock-put .opblock-summary-method {
+    background: #f59e0b !important;
+    color: white !important;
+}
+
+.swagger-ui .opblock.opblock-delete .opblock-summary-method {
+    background: #ef4444 !important;
+    color: white !important;
+}
+
+.swagger-ui .opblock.opblock-patch .opblock-summary-method {
+    background: #8b5cf6 !important;
+    color: white !important;
+}
+
+/* Expand/collapse button */
+.swagger-ui .opblock .opblock-summary .opblock-summary-control {
+    border-radius: 8px !important;
+    width: 36px !important;
+    height: 36px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    background: var(--surface) !important;
+    transition: all 0.2s ease !important;
+    border: 1px solid var(--border) !important;
+}
+
+.swagger-ui .opblock .opblock-summary .opblock-summary-control:hover {
+    background: var(--border-light) !important;
+    transform: scale(1.05) !important;
+}
+
+/* Section headers */
+.swagger-ui .opblock-tag {
+    background: var(--surface) !important;
+    border-radius: 12px !important;
+    margin: 2rem 0 1rem 0 !important;
+    padding: 1.5rem !important;
+    border: 1px solid var(--border) !important;
+    box-shadow: 0 2px 8px var(--shadow) !important;
+}
+
+.swagger-ui .opblock-tag h3 {
+    color: var(--primary-color) !important;
+    font-size: 1.5rem !important;
+    font-weight: 700 !important;
+    margin: 0 !important;
+}
+
+.swagger-ui .opblock-tag small {
+    color: var(--text-secondary) !important;
+    font-size: 1rem !important;
+    font-weight: 400 !important;
+}
+
+/* Try it out button */
+.swagger-ui .btn.try-out__btn {
+    background: var(--secondary-color) !important;
+    border: none !important;
+    border-radius: 8px !important;
+    color: white !important;
+    padding: 8px 16px !important;
+    font-weight: 600 !important;
+    transition: all 0.2s ease !important;
+    font-size: 0.875rem !important;
+}
+
+.swagger-ui .btn.try-out__btn:hover {
+    background: var(--primary-color) !important;
+    transform: translateY(-1px) !important;
+    box-shadow: 0 4px 12px var(--shadow-lg) !important;
+}
+
+/* Execute button */
+.swagger-ui .btn.execute {
+    background: var(--accent-color) !important;
+    border: none !important;
+    border-radius: 8px !important;
+    color: white !important;
+    padding: 10px 24px !important;
+    font-weight: 600 !important;
+    font-size: 0.95rem !important;
+    transition: all 0.2s ease !important;
+}
+
+.swagger-ui .btn.execute:hover {
+    background: var(--accent-light) !important;
+    transform: translateY(-1px) !important;
+    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3) !important;
+}
+
+/* Response section */
+.swagger-ui .responses-wrapper {
+    background: var(--surface) !important;
+    border-radius: 8px !important;
+    padding: 1rem !important;
+    margin-top: 1rem !important;
+    border: 1px solid var(--border) !important;
+}
+
+.swagger-ui .response .response-col_status {
+    font-weight: 700 !important;
+    color: var(--primary-color) !important;
+}
+
+/* Models section */
+.swagger-ui .model-box {
+    background: var(--surface) !important;
+    border-radius: 8px !important;
+    border: 1px solid var(--border) !important;
+}
+
+.swagger-ui .model-title {
+    color: var(--primary-color) !important;
+    font-weight: 600 !important;
+}
+
+/* Parameter input styling */
+.swagger-ui .parameters-col_description input[type="text"],
+.swagger-ui .parameters-col_description textarea,
+.swagger-ui .parameters-col_description select {
+    border-radius: 8px !important;
+    border: 1px solid var(--border) !important;
+    padding: 8px 12px !important;
+    transition: all 0.2s ease !important;
+    background: var(--surface-elevated) !important;
+    color: var(--text-primary) !important;
+}
+
+.swagger-ui .parameters-col_description input[type="text"]:focus,
+.swagger-ui .parameters-col_description textarea:focus,
+.swagger-ui .parameters-col_description select:focus {
+    border-color: var(--accent-color) !important;
+    box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1) !important;
+    outline: none !important;
+}
+
+/* Table styling */
+.swagger-ui table {
+    border-collapse: separate !important;
+    border-spacing: 0 !important;
+    border-radius: 8px !important;
+    overflow: hidden !important;
+    border: 1px solid var(--border) !important;
+}
+
+.swagger-ui table thead tr th {
+    background: var(--surface) !important;
+    color: var(--primary-color) !important;
+    font-weight: 600 !important;
+    padding: 12px !important;
+    border-bottom: 1px solid var(--border) !important;
+}
+
+.swagger-ui table tbody tr td {
+    padding: 12px !important;
+    border-bottom: 1px solid var(--border-light) !important;
+    color: var(--text-primary) !important;
+}
+
+.swagger-ui table tbody tr:last-child td {
+    border-bottom: none !important;
+}
+
+/* Code blocks */
+.swagger-ui .highlight-code {
+    background: var(--surface) !important;
+    border: 1px solid var(--border) !important;
+    border-radius: 8px !important;
+}
+
+.swagger-ui .microlight {
+    color: var(--text-primary) !important;
+}
+
+/* Scrollbar styling */
+.swagger-ui ::-webkit-scrollbar {
+    width: 8px !important;
+    height: 8px !important;
+}
+
+.swagger-ui ::-webkit-scrollbar-track {
+    background: var(--surface) !important;
+    border-radius: 4px !important;
+}
+
+.swagger-ui ::-webkit-scrollbar-thumb {
+    background: var(--border) !important;
+    border-radius: 4px !important;
+}
+
+.swagger-ui ::-webkit-scrollbar-thumb:hover {
+    background: var(--text-light) !important;
+}
+
+/* Loading states */
+@keyframes pulse {
+    0% { opacity: 1; }
+    50% { opacity: 0.5; }
+    100% { opacity: 1; }
+}
+
+.swagger-ui .loading {
+    animation: pulse 1.5s ease-in-out infinite !important;
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+    :root {
+        --primary-color: #0f172a;
+        --secondary-color: #1e293b;
+        --text-primary: #f1f5f9;
+        --text-secondary: #94a3b8;
+        --background: #0f172a;
+        --surface: #1e293b;
+        --surface-elevated: #334155;
+        --border: #475569;
+        --border-light: #334155;
+    }
+}
+
+/* Custom animations */
+.swagger-ui .opblock {
+    animation: slideInUp 0.3s ease-out !important;
+}
+
+@keyframes slideInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Improved spacing */
+.swagger-ui .wrapper {
+    padding: 2rem !important;
+    max-width: 1200px !important;
+    margin: 0 auto !important;
+}
+
+/* Better typography */
+.swagger-ui .opblock .opblock-section-header h4 {
+    color: var(--primary-color) !important;
+    font-weight: 600 !important;
+    font-size: 1.1rem !important;
+}
+
+.swagger-ui .parameter__name {
+    color: var(--primary-color) !important;
+    font-weight: 600 !important;
+}
+
+.swagger-ui .parameter__type {
+    color: var(--accent-color) !important;
+    font-weight: 500 !important;
+}
+
+/* Status code styling */
+.swagger-ui .response-col_status .response-undocumented {
+    color: var(--text-secondary) !important;
+}
+
+.swagger-ui .response-col_status .response-undocumented.response-200 {
+    color: var(--accent-color) !important;
+}
+
+.swagger-ui .response-col_status .response-undocumented.response-400,
+.swagger-ui .response-col_status .response-undocumented.response-404,
+.swagger-ui .response-col_status .response-undocumented.response-500 {
+    color: #ef4444 !important;
+}
+

@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comprehensive API - 50 Features</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #1e293b;
+            --secondary-color: #334155;
+            --accent-color: #10b981;
+            --accent-light: #34d399;
+            --text-primary: #0f172a;
+            --text-secondary: #64748b;
+            --text-light: #94a3b8;
+            --background: #ffffff;
+            --surface: #f8fafc;
+            --surface-elevated: #ffffff;
+            --border: #e2e8f0;
+            --border-light: #f1f5f9;
+            --shadow: rgba(15, 23, 42, 0.08);
+            --shadow-lg: rgba(15, 23, 42, 0.15);
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            line-height: 1.6;
+            color: var(--text-primary);
+            background: var(--background);
+            overflow-x: hidden;
+        }
+
+        /* Header */
+        .header {
+            background: var(--surface-elevated);
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+            background: rgba(248, 250, 252, 0.95);
+        }
+
+        .nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 70px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-weight: 700;
+            font-size: 1.25rem;
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        .logo i {
+            background: linear-gradient(135deg, var(--accent-color), var(--accent-light));
+            color: white;
+            padding: 8px;
+            border-radius: 8px;
+            font-size: 1rem;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.2s ease;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent-color);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent-color);
+            transition: width 0.2s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, var(--surface) 0%, var(--surface-elevated) 100%);
+            padding: 5rem 2rem;
+            text-align: center;
+            position: relative;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="%23e2e8f0" stroke-width="0.5"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+            opacity: 0.5;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1.2;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            margin-bottom: 3rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 0.875rem 2rem;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-primary {
+            background: var(--accent-color);
+            color: white;
+            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+        }
+
+        .btn-primary:hover {
+            background: var(--accent-light);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(16, 185, 129, 0.4);
+        }
+
+        .btn-secondary {
+            background: var(--surface-elevated);
+            color: var(--text-primary);
+            border: 1px solid var(--border);
+            box-shadow: 0 2px 8px var(--shadow);
+        }
+
+        .btn-secondary:hover {
+            background: var(--surface);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px var(--shadow-lg);
+        }
+
+        /* Stats Section */
+        .stats {
+            padding: 4rem 2rem;
+            background: var(--surface-elevated);
+        }
+
+        .stats-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .stat-card {
+            background: var(--background);
+            padding: 2rem;
+            border-radius: 16px;
+            text-align: center;
+            border: 1px solid var(--border);
+            box-shadow: 0 2px 8px var(--shadow);
+            transition: all 0.2s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px var(--shadow-lg);
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--accent-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            color: var(--text-secondary);
+            font-weight: 500;
+            font-size: 1.1rem;
+        }
+
+        /* Features Section */
+        .features {
+            padding: 5rem 2rem;
+            background: var(--background);
+        }
+
+        .features-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .section-title p {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .feature-card {
+            background: var(--surface-elevated);
+            padding: 2.5rem;
+            border-radius: 16px;
+            border: 1px solid var(--border);
+            transition: all 0.2s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px var(--shadow-lg);
+        }
+
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--accent-color), var(--accent-light));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .feature-icon i {
+            font-size: 1.5rem;
+            color: white;
+        }
+
+        .feature-card h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .feature-card p {
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        /* API Keys Section */
+        .api-keys {
+            padding: 5rem 2rem;
+            background: var(--surface);
+        }
+
+        .api-keys-container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .api-key-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .api-key-card {
+            background: var(--surface-elevated);
+            padding: 2rem;
+            border-radius: 16px;
+            border: 1px solid var(--border);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .api-key-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent-color), var(--accent-light));
+        }
+
+        .key-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .key-title {
+            font-weight: 600;
+            color: var(--primary-color);
+        }
+
+        .key-badge {
+            background: var(--accent-color);
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+
+        .key-value {
+            background: var(--surface);
+            padding: 1rem;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            font-weight: 600;
+            color: var(--primary-color);
+            border: 1px solid var(--border);
+            margin-bottom: 1rem;
+        }
+
+        .key-permissions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .permission {
+            background: var(--accent-color);
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 16px;
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+
+        .key-description {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--primary-color);
+            color: white;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .footer p {
+            opacity: 0.8;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero p {
+                font-size: 1.1rem;
+            }
+
+            .nav {
+                padding: 0 1rem;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .btn {
+                width: 100%;
+                max-width: 300px;
+                justify-content: center;
+            }
+        }
+
+        /* Smooth scrolling */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Loading animation */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .feature-card, .stat-card, .api-key-card {
+            animation: fadeInUp 0.6s ease-out;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="nav">
+            <a href="#" class="logo">
+                <i class="fas fa-code"></i>
+                Comprehensive API
+            </a>
+            <ul class="nav-links">
+                <li><a href="#features">Fitur</a></li>
+                <li><a href="#api-keys">API Keys</a></li>
+                <li><a href="/swagger/">Dokumentasi</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>API Komprehensif dengan 50 Fitur</h1>
+            <p>Solusi API lengkap dengan autentikasi API key, dokumentasi Swagger interaktif, dan 50+ endpoint yang siap digunakan untuk berbagai kebutuhan aplikasi Anda.</p>
+            <div class="hero-buttons">
+                <a href="/swagger/" class="btn btn-primary">
+                    <i class="fas fa-book"></i>
+                    Lihat Dokumentasi API
+                </a>
+                <a href="#api-keys" class="btn btn-secondary">
+                    <i class="fas fa-key"></i>
+                    Dapatkan API Key
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats">
+        <div class="stats-container">
+            <div class="stat-card">
+                <div class="stat-number">50+</div>
+                <div class="stat-label">API Endpoints</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">8</div>
+                <div class="stat-label">Kategori API</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">100%</div>
+                <div class="stat-label">Dokumentasi Lengkap</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">24/7</div>
+                <div class="stat-label">Ketersediaan</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features" id="features">
+        <div class="features-container">
+            <div class="section-title">
+                <h2>Fitur Unggulan</h2>
+                <p>Berbagai fitur lengkap yang siap mendukung kebutuhan aplikasi modern Anda</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3>User Management</h3>
+                    <p>Kelola pengguna dengan fitur lengkap: CRUD, profil, avatar, preferensi, aktivitas, dan pencarian.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-shopping-cart"></i>
+                    </div>
+                    <h3>Product & Order Management</h3>
+                    <p>Sistem manajemen produk dan pesanan yang komprehensif dengan inventory, review, dan tracking.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3>Analytics & Reporting</h3>
+                    <p>Dashboard analitik lengkap dengan laporan penjualan, traffic, konversi, dan performa real-time.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-folder"></i>
+                    </div>
+                    <h3>File Management</h3>
+                    <p>Upload, download, share, dan kelola file dengan sistem keamanan dan tracking yang robust.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-bell"></i>
+                    </div>
+                    <h3>Notification System</h3>
+                    <p>Sistem notifikasi real-time dengan berbagai channel dan pengaturan preferensi pengguna.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3>Security & Authentication</h3>
+                    <p>Autentikasi API key yang aman dengan sistem permission berbasis role dan monitoring.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- API Keys Section -->
+    <section class="api-keys" id="api-keys">
+        <div class="api-keys-container">
+            <div class="section-title">
+                <h2>API Keys untuk Testing</h2>
+                <p>Gunakan API key berikut untuk menguji endpoint API. Setiap key memiliki level akses yang berbeda.</p>
+            </div>
+            <div class="api-key-cards">
+                <div class="api-key-card">
+                    <div class="key-header">
+                        <div class="key-title">Admin Access</div>
+                        <div class="key-badge">Full Access</div>
+                    </div>
+                    <div class="key-value">demo-key-123</div>
+                    <div class="key-permissions">
+                        <span class="permission">Read</span>
+                        <span class="permission">Write</span>
+                        <span class="permission">Admin</span>
+                    </div>
+                    <div class="key-description">
+                        Akses penuh ke semua endpoint termasuk operasi admin.
+                    </div>
+                </div>
+                <div class="api-key-card">
+                    <div class="key-header">
+                        <div class="key-title">Read & Write Access</div>
+                        <div class="key-badge">Standard</div>
+                    </div>
+                    <div class="key-value">test-key-456</div>
+                    <div class="key-permissions">
+                        <span class="permission">Read</span>
+                        <span class="permission">Write</span>
+                    </div>
+                    <div class="key-description">
+                        Dapat membaca dan menulis data, tanpa akses admin.
+                    </div>
+                </div>
+                <div class="api-key-card">
+                    <div class="key-header">
+                        <div class="key-title">Read Only Access</div>
+                        <div class="key-badge">Limited</div>
+                    </div>
+                    <div class="key-value">readonly-789</div>
+                    <div class="key-permissions">
+                        <span class="permission">Read</span>
+                    </div>
+                    <div class="key-description">
+                        Hanya dapat membaca data, tidak dapat melakukan perubahan.
+                    </div>
+                </div>
+            </div>
+            <div style="margin-top: 2rem; text-align: center; color: var(--text-secondary);">
+                <p><strong>Cara Penggunaan:</strong> Masukkan API key di header <code style="background: var(--surface); padding: 0.25rem 0.5rem; border-radius: 4px; color: var(--primary-color);">X-API-Key</code> saat melakukan request.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>&copy; 2025 Comprehensive API. Semua hak dilindungi.</p>
+    </footer>
+</body>
+</html>
+
